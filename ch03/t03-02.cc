@@ -7,14 +7,14 @@ using std::string;
 
 void read_word()
 {
-    string temp;
+	string temp;
 
-    cin >> temp;
+	cin >> temp;
 }
 
 void read_line()
 {
-    string temp;
+	string temp;
 
-    getline(cin, temp);
+	getline(cin, temp);
 }

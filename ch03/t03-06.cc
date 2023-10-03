@@ -8,12 +8,12 @@ using std::string;
 
 int main()
 {
-    string s;
+	string s;
 
-    cin >> s;
-    for (auto &c : s)
-        c = 'X';
-    cout << s << endl;
+	cin >> s;
+	for (auto &c : s)
+		c = 'X';
+	cout << s << endl;
 
-    return 0;
+	return 0;
 }

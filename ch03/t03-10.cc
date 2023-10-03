@@ -9,15 +9,14 @@ using std::string;
 
 int main()
 {
-    string s;
+	string s;
 
-    cin >> s;
-    for (auto c : s)
-    {
-        if (!ispunct)
-            cout << c;
-    }
-    cout << endl;
+	cin >> s;
+	for (auto c : s) {
+		if (!ispunct)
+			cout << c;
+	}
+	cout << endl;
 
-    return 0;
+	return 0;
 }

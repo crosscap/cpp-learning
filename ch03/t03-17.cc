@@ -11,17 +11,17 @@ using std::vector;
 
 int main()
 {
-    string input;
-    vector<string> carrier;
+	string input;
+	vector<string> carrier;
 
-    while (cin >> input)
-        carrier.push_back(input);
-    for (auto &i : carrier)
-        for (auto &j : i)
-            j = toupper(j);
-    for (auto word : carrier)
-        cout << word << endl;
-    cout << endl;
-    
-    return 0;
+	while (cin >> input)
+		carrier.push_back(input);
+	for (auto &i : carrier)
+		for (auto &j : i)
+			j = toupper(j);
+	for (auto word : carrier)
+		cout << word << endl;
+	cout << endl;
+	
+	return 0;
 }

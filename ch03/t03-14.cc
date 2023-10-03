@@ -10,13 +10,13 @@ using std::vector;
 
 int main()
 {
-    int input;
-    vector<int> carrier;
+	int input;
+	vector<int> carrier;
 
-    while (cin >> input)
-        carrier.push_back(input);
-    for (auto i : carrier)
-        cout << i << endl;
-    
-    return 0;
+	while (cin >> input)
+		carrier.push_back(input);
+	for (auto i : carrier)
+		cout << i << endl;
+	
+	return 0;
 }

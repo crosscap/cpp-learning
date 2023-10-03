@@ -7,14 +7,13 @@ using std::string;
 
 int main()
 {
-    int i, sum = 0;
+	int i, sum = 0;
 
-    while (cin >> i && i != 42)
-    {
-        sum += i;
-    }
+	while (cin >> i && i != 42) {
+		sum += i;
+	}
 
-    cout << sum << std::endl;
-    
-    return 0;
+	cout << sum << std::endl;
+	
+	return 0;
 }
