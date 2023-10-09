@@ -11,14 +11,10 @@ int main()
 	cout << "What's your name?\n";
 	cin >> name;
 	while (!long_enough) {
-		int length;
-		for (length = 0; name[length]; ++length)
-			continue;
-		if (length <= 2) {
+		if (name.size() <= 2) {
 			cout << "Too short! Please enter a right name." << endl;
 			cin >> name;
-		}
-		else
+		} else
 			long_enough = true;
 	}
 

@@ -7,7 +7,7 @@ inline bool size_ok(int pos)
 {
     const int max_size = 1024;
     if (pos <= 0 || pos > max_size) {
-        cerr << "fibon_seq(): oops: invalid size: "
+        cerr << "pent_seq(): oops: invalid size: "
              << pos << " -- can't fulfill request.\n";
         return false;
     }

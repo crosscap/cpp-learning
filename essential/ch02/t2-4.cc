@@ -7,7 +7,7 @@ inline bool size_ok(int pos)
 {
     const int max_size = 1024;
     if (pos <= 0 || pos > max_size) {
-        cerr << "fibon_seq(): oops: invalid size: "
+        cerr << "pent_seq(): oops: invalid size: "
              << pos << " -- can't fulfill request.\n";
         return false;
     }
@@ -28,9 +28,8 @@ const vector<int>* pent_seq(int size)
     return &elem;
 }
 
-int seq_elem(const int pos)
+int seq_elem(const int pos, const vector<int> *elem)
 {
-    const vector<int> *elem;
     elem = pent_seq(pos);
     return (*elem)[pos-1];
 }
@@ -49,16 +48,12 @@ int main()
 {
     const vector<int> *elem;
     elem = pent_seq(6);
+    cout << elem << endl;
     show_vector(*elem, "int");
-    pent_seq(4);
-    show_vector(*elem, "int");
-    pent_seq(8);
-    show_vector(*elem, "int");
-
-    int i = seq_elem(10);
+    int i = seq_elem(10, elem);
     cout << i << endl;
     show_vector(*elem, "int");
-    i = seq_elem(4);
+    i = seq_elem(4, elem);
     cout << i << endl;
     show_vector(*elem, "int");
     return 0;

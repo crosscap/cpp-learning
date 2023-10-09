@@ -18,19 +18,31 @@ string max(string a, string b)
     return a < b ? b : a;
 }
 
-vector<int> max(vector<int> a, vector<int> b)
+int max(vector<int> a)
 {
-    return a < b ? b : a;
+    int imax = a[0];
+    for (auto index = a.begin(); index != a.end(); ++index)
+        if (*index > imax)
+            imax = *index;
+    return imax;
 }
 
-vector<float> max(vector<float> a, vector<float> b)
+float max(vector<float> a)
 {
-    return a < b ? b : a;
+    float fmax = a[0];
+    for (auto index = a.begin(); index != a.end(); ++index)
+        if (*index > fmax)
+            fmax = *index;
+    return fmax;
 }
 
-vector<string> max(vector<string> a, vector<string> b)
+string max(vector<string> a)
 {
-    return a < b ? b : a;
+    string smax = a[0];
+    for (auto index = a.begin(); index != a.end(); ++index)
+        if (*index > smax)
+            smax = *index;
+    return smax;
 }
 
 int max(int a[], int size)
@@ -62,11 +74,9 @@ string max(string a[], int size)
 
 int main()
 {
-    vector<int> maxi, ai = {2, 4, 5}, bi = {9 ,2};
-    vector<float> maxf, af = {2.4, 5.3, 2.1}, bf = {9.3, 7.2, 4.2, 5.1};
-    vector<string> maxs;
+    vector<int> ai = {2, 4, 5};
+    vector<float> af = {2.4, 5.3, 2.1};
     vector<string> as = {"gogogo", "runrunrun", "push"};
-    vector<string> bs = {"go", "run"};
     int ari[] = {2, 4, 5};
     float arf[] = {2.4, 5.3, 2.1};
     string ars[] = {"gogogo", "runrunrun", "push"};
@@ -74,18 +84,12 @@ int main()
     cout << max(3, 5) << endl;
     cout << max(2.1, 4.7) << endl;
     cout << max("gogogo", "runrunrun") << endl;
-    maxi = max(ai, bi);
-    for (int i = 0; i < maxi.size(); ++i)
-        cout << maxi[i] << (i == maxi.size() - 1 ? '\n' : ' ');
-    maxf = max(af, bf);
-    for (int i = 0; i < maxf.size(); ++i)
-        cout << maxf[i] << (i == maxf.size() - 1 ? '\n' : ' ');
-    maxs = max(as, bs);
-    for (int i = 0; i < maxs.size(); ++i)
-        cout << maxs[i] << (i == maxs.size() - 1 ? '\n' : ' ');
-    cout << max(ari, 3) << endl;
-    cout << max(arf, 3) << endl;
-    cout << max(ars, 3) << endl;
+    cout << max(ai) << endl;
+    cout << max(af) << endl;
+    cout << max(as) << endl;
+    cout << max(ari, 2) << endl;
+    cout << max(arf, 2) << endl;
+    cout << max(ars, 2) << endl;
 
     return 0;
 }

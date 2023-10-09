@@ -7,7 +7,7 @@ bool pent_seq(int size, vector<int> &elem)
 {
     const int max_size = 1024;
     if (size <= 0 || size > max_size) {
-        cerr << "fibon_seq(): oops: invalid size: "
+        cerr << "pent_seq(): oops: invalid size: "
              << size << " -- can't fulfill request.\n";
         return false;
     } else if (size <= elem.size()) {

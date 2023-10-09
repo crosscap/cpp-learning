@@ -9,6 +9,15 @@ elemType my_max(elemType a, elemType b)
     return a < b ? b : a;
 }
 
+template <typename elemType>
+elemType my_max(vector<elemType> a)
+{
+    elemType max_elem = a[0];
+    for (auto index = a.begin(); index != a.end(); ++index)
+        if (*index > max_elem)
+            max_elem = *index;
+    return max_elem;
+}
 
 template <typename elemType>
 elemType my_max(elemType a[], int size)
@@ -22,11 +31,9 @@ elemType my_max(elemType a[], int size)
 
 int main()
 {
-    vector<int> maxi, ai = {2, 4, 5}, bi = {9 ,2};
-    vector<float> maxf, af = {2.4, 5.3, 2.1}, bf = {9.3, 7.2, 4.2, 5.1};
-    vector<string> maxs;
+    vector<int> ai = {2, 4, 5};
+    vector<float> af = {2.4, 5.3, 2.1};
     vector<string> as = {"gogogo", "runrunrun", "push"};
-    vector<string> bs = {"go", "run"};
     int ari[] = {2, 4, 5};
     float arf[] = {2.4, 5.3, 2.1};
     string ars[] = {"gogogo", "runrunrun", "push"};
@@ -34,18 +41,12 @@ int main()
     cout << my_max(3, 5) << endl;
     cout << my_max(2.1, 4.7) << endl;
     cout << my_max("gogogo", "runrunrun") << endl;
-    maxi = my_max(ai, bi);
-    for (int i = 0; i < maxi.size(); ++i)
-        cout << maxi[i] << (i == maxi.size() - 1 ? '\n' : ' ');
-    maxf = my_max(af, bf);
-    for (int i = 0; i < maxf.size(); ++i)
-        cout << maxf[i] << (i == maxf.size() - 1 ? '\n' : ' ');
-    maxs = my_max(as, bs);
-    for (int i = 0; i < maxs.size(); ++i)
-        cout << maxs[i] << (i == maxs.size() - 1 ? '\n' : ' ');
-    cout << my_max(ari, 3) << endl;
-    cout << my_max(arf, 3) << endl;
-    cout << my_max(ars, 3) << endl;
+    cout << my_max(ai) << endl;
+    cout << my_max(af) << endl;
+    cout << my_max(as) << endl;
+    cout << my_max(ari, 2) << endl;
+    cout << my_max(arf, 2) << endl;
+    cout << my_max(ars, 2) << endl;
 
     return 0;
 }

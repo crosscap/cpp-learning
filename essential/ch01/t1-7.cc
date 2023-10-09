@@ -1,20 +1,28 @@
-#include <algorithm>
-#include <cctype>
-#include <fstream>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cctype>
 
 using namespace std;
 
 int main()
 {
-	ifstream input(".\\input-07.txt");
-	ofstream output(".\\output-07.txt");
+	ifstream in_file(".\\input-07.txt");
+	if (!in_file) {
+		cout << "can not open input file!";
+		return -1;
+	}
+	ofstream out_file(".\\output-07.txt");
+	if (!out_file) {
+		cout << "can not open output file!";
+		return -2;
+	}
 	string str;
 	vector<string> words;
 
-	while (input >> str) {
+	while (in_file >> str) {
 		while (!isalnum(str[str.size() - 1])) {
 			str.pop_back();
 		}
@@ -30,8 +38,9 @@ int main()
 	}
 	cout << endl;
 	for (int i = 0; i != words.size(); ++i) {
-		output << words[i] << '\n';
+		out_file << words[i] << '\n';
 	}
+	out_file << endl;
 
 	return 0;
 }

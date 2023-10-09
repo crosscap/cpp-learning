@@ -12,10 +12,9 @@ int main()
 	int ai[MAXSIZE];
 	vector<int> vi;
 
-	while (cin >> input){
-		ai[index] = input;
+	while (cin >> input && index < MAXSIZE){
+		ai[index++] = input;
 		vi.push_back(input);
-		++index;
 	}
 
 	int asum = 0, vsum = 0;
