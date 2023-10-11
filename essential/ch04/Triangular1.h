@@ -1,7 +1,8 @@
 #include <string>
 using namespace std;
 
-class Triangular1 {
+class Triangular1
+{
 public:
     Triangular1(int len = 1, int bp = 1);
 
