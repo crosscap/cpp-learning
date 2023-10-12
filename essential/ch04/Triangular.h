@@ -45,3 +45,5 @@ private:
     static vector<int> _elems;
     static const int _max_elems = 1024;
 };
+
+vector<int> Triangular::_elems;

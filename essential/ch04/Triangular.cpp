@@ -1,8 +1,6 @@
 #include "Triangular.h"
 #include <algorithm>
 
-vector<int> Triangular::_elems;
-
 Triangular::Triangular(int len, int bp)
     :_length(len > 0 ? len : 1), _beg_pos (bp > 0 ? bp : 1)
 {
