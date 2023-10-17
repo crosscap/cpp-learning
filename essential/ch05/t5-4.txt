@@ -1,0 +1,15 @@
+LibraryRentalMaterial(
+    book (
+        audio book,
+        CD-ROM book,
+        rental book
+    ),
+    record,
+    video,
+    video_game(
+        Sega video game,
+        Sony Playstation video game,
+        Nintendo video game
+    ),
+    children's puppet
+)
