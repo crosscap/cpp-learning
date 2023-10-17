@@ -1,5 +1,5 @@
 #include <iostream>
-#include "num_sequence.h"
+#include "num_sequence_0.h"
 using namespace std;
 
 class Fibonacci : public num_sequence
@@ -9,7 +9,7 @@ public:
         : _length(len), _beg_pos(beg_pos) { }
 
     virtual int elem(int) const;
-    virtual const char * what_am_i() const;
+    virtual const char * what_am_i() const { return "Fibonacci"; }
     virtual ostream& print(ostream &os = cout) const;
 
     int length() const { return _length; }
@@ -21,6 +21,8 @@ protected:
     int _beg_pos;
     static vector<int> _elems;
 };
+
+vector<int> Fibonacci::_elems;
 
 int Fibonacci::elem(int pos) const
 {
@@ -53,7 +55,7 @@ void Fibonacci::gen_elems(int pos) const
     }
 }
 
-ostream& Fibonacci::print(ostream &os = cout) const
+ostream& Fibonacci::print(ostream &os) const
 {
     int elem_pos = _beg_pos - 1;
     int end_pos = elem_pos + _length;

@@ -15,12 +15,14 @@ public:
 
 protected:
     virtual void gen_elems(int pos) const = 0;
-    bool check_integrity(int, int);
+    bool check_integrity(int, int) const;
 
     const static int _max_elems = 1024;
 };
 
-bool num_sequence::check_integrity(int pos, int size)
+const int num_sequence::_max_elems;
+
+bool num_sequence::check_integrity(int pos, int size) const
 {
     if (pos <= 0 || pos > _max_elems) {
         cerr << "!!invalid position: " << pos

@@ -1,0 +1,9 @@
+a. T
+b. F
+c. T
+d. T
+e. F
+f. T
+g. T
+h. F
+i. F
