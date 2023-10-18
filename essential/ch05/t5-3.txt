@@ -2,7 +2,7 @@ a. T
 b. F
 c. T
 d. T
-e. F
+e. F has-a
 f. T
 g. T
 h. F

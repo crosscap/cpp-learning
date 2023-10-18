@@ -5,7 +5,8 @@ LibraryRentalMaterial(
         rental book
     ),
     record,
-    video(
+    video,
+    video_game(
         Sega video game,
         Sony Playstation video game,
         Nintendo video game
