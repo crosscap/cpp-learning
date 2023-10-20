@@ -3,18 +3,19 @@ using namespace std;
 
 class Matrix
 {
+    friend Matrix operator+(const Matrix&, const Matrix &);
+    friend Matrix operator*(const Matrix&, const Matrix &);
 public:
     Matrix(int elem0, int elem1, int elem2, int elem3,
            int elem4, int elem5, int elem6, int elem7,
            int elem8, int elem9, int elemA, int elemB,
            int elemC, int elemD, int elemE, int elemF);
     Matrix(const int *array);
+    Matrix();
 
     ostream &print(ostream &os = cout) const;
 
     Matrix& operator=(const Matrix &rhs);
-    Matrix& operator+(const Matrix &rhs) const;
-    Matrix& operator*(const Matrix &rhs) const;
 
     int & operator()(int row, int col) { return _matrix[row][col]; };
     int operator()(int row, int col) const { return _matrix[row][col]; };
@@ -22,14 +23,14 @@ public:
     void operator+=(const Matrix &rhs);
 
 private:
-    int _row, _col;
+    int _row = 4, _col = 4;
     int _matrix[4][4];
 };
 
 Matrix::Matrix(const int *array)
 {
-    for (int ix = 0; ix < 4; ++ix) {
-        for (int jx = 0; jx < 4; ++jx, ++array)
+    for (int ix = 0; ix < _row; ++ix) {
+        for (int jx = 0; jx < _col; ++jx, ++array)
             _matrix[ix][jx] = *array;
     }
 }
@@ -56,10 +57,18 @@ Matrix::Matrix(int elem0, int elem1, int elem2, int elem3,
     _matrix[3][3] = elemF;
 }
 
+Matrix::Matrix()
+{
+    for (int ix = 0; ix < _row; ++ix) {
+        for (int jx = 0; jx < _col; ++jx)
+            _matrix[ix][jx] = 0;
+    }
+}
+
 ostream &Matrix::print(ostream &os) const
 {
-    for (int ix = 0; ix < 4; ++ix) {
-        for (int jx = 0; jx < 4; ++jx) {
+    for (int ix = 0; ix < _row; ++ix) {
+        for (int jx = 0; jx < _col; ++jx) {
             os << _matrix[ix][jx] << ' ';
         }
         os << endl;
@@ -68,31 +77,30 @@ ostream &Matrix::print(ostream &os) const
 
 Matrix& Matrix::operator=(const Matrix &rhs)
 {
-    for (int ix = 0; ix < 4; ++ix) {
-        for (int jx = 0; jx < 4; ++jx)
-            this->_matrix[ix][jx] = rhs._matrix[ix][jx];
+    for (int ix = 0; ix < _row; ++ix) {
+        for (int jx = 0; jx < _col; ++jx)
+            _matrix[ix][jx] = rhs._matrix[ix][jx];
     }
 
     return *this;
 }
 
-Matrix& Matrix::operator+(const Matrix &rhs) const
+Matrix operator+(const Matrix &m1, const Matrix &m2)
 {
-    Matrix result(*this);
-    for (int ix = 0; ix < 4; ++ix) {
-        for (int jx = 0; jx < 4; ++jx)
-            result._matrix[ix][jx] += rhs._matrix[ix][jx];
-    }
+    Matrix result(m1);
+    result += m2;
     return result;
 }
 
-Matrix& Matrix::operator*(const Matrix &rhs) const
+Matrix operator*(const Matrix &m1, const Matrix &m2)
 {
-    Matrix result(*this);
-    for (int ix = 0, sum = 0; ix < 4; ++ix, sum = 0) {
-        for (int jx = 0; jx < 4; ++jx) {
-            for (int kx = 0; kx < 4; ++kx)
-                 sum += _matrix[ix][kx] * rhs._matrix[kx][jx];
+    int sum;
+    Matrix result;
+    for (int ix = 0, sum = 0; ix < m1._row; ++ix) {
+        for (int jx = 0; jx < m2._col; ++jx) {
+            sum = 0;
+            for (int kx = 0; kx < m1._col; ++kx)
+                 sum += m1(ix, kx) * m2(kx, jx);
             result._matrix[ix][jx] = sum;
         }
     }
@@ -101,8 +109,8 @@ Matrix& Matrix::operator*(const Matrix &rhs) const
 
 void Matrix::operator+=(const Matrix &rhs)
 {
-    for (int ix = 0; ix < 4; ++ix) {
-        for (int jx = 0; jx < 4; ++jx)
+    for (int ix = 0; ix < _row; ++ix) {
+        for (int jx = 0; jx < _col; ++jx)
             _matrix[ix][jx] += rhs._matrix[ix][jx];
     }
 }
