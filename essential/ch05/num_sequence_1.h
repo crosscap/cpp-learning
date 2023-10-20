@@ -30,7 +30,7 @@ protected:
     vector<int> &_relems;
 };
 
-const int num_sequence::_max_elems = 1024;
+const int num_sequence::_max_elems;
 
 bool num_sequence::check_integrity(int pos, int size) const
 {
@@ -44,7 +44,6 @@ bool num_sequence::check_integrity(int pos, int size) const
 
     return true;
 }
-
 
 int num_sequence::elem(int pos) const
 {
