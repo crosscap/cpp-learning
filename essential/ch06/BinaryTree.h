@@ -35,6 +35,7 @@ template <typename elemType>
 class BinaryTree
 {
     friend class BTnode<elemType>;
+    friend ostream& operator<<(ostream&, const BinaryTree<elemType> &);
 public:
     BinaryTree();
     BinaryTree(const BinaryTree &);
@@ -47,9 +48,9 @@ public:
     void remove(const elemType &elem);
     void clear() { if (_root) { clear(_root); _root = nullptr;} }
 
-    void inorder( ostream &os = cout )   const { _root->inorder( _root, os ); }
-    void postorder( ostream &os = cout ) const { _root->postorder( _root, os ); }
-    void preorder( ostream &os = cout )  const { _root->preorder( _root, os ); }
+    void inorder(ostream &os = cout)   const { _root->inorder(_root, os); }
+    void postorder(ostream &os = cout) const { _root->postorder(_root, os); }
+    void preorder(ostream &os = cout)  const { _root->preorder(_root, os); }
 
 private:
     BTnode<elemType> *_root;
@@ -57,7 +58,9 @@ private:
     void remove_root();
     void clear(BTnode<elemType> *pt);
     void copy(BTnode<elemType> *&tar, BTnode<elemType> *src);
-
+    ostream& print( ostream &os = *_current_os,
+                    void (BinaryTree<elemType>::*traversal)( ostream& ) const =
+                          &BinaryTree<elemType>::inorder ) const;
 };
 
 template <typename valType>
@@ -276,4 +279,22 @@ void BTnode<elemType>::
 display_val(BTnode<elemType> *pt, ostream &os) const
 {
     os << pt->_val << ' ';
+}
+
+template <typename elemType>
+ostream&
+BinaryTree<elemType>::
+print( ostream &os,
+       void (BinaryTree::*traversal)( ostream& ) const ) const
+{
+	(this->*traversal)( os );
+	return os;
+}
+
+template <typename elemType>
+inline ostream& operator<<(ostream &os, const BinaryTree<elemType> &bt)
+{
+    os << "Tree: " << endl;
+    bt.print(os);
+    return os;
 }
