@@ -7,9 +7,8 @@ using namespace std;
 
 class Triangular
 {
-public:
     friend class Triangular_iterator;
-
+public:
     Triangular(int len = 1, int bp = 1);
 
     int length() const { return _length; }
@@ -45,5 +44,3 @@ private:
     static vector<int> _elems;
     static const int _max_elems = 1024;
 };
-
-vector<int> Triangular::_elems;

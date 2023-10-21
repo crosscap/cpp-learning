@@ -1,8 +1,6 @@
 #include "Triangular.h"
 #include "Triangular_iterator.h"
 
-vector<int> Triangular::_elems;
-
 // class Triangular_iterator
 inline bool Triangular_iterator::
 operator==(const Triangular_iterator &rhs) const
