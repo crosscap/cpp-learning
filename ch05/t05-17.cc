@@ -3,8 +3,6 @@
 
 using std::vector;
 
-
-
 bool int_prefix(vector<int> &v1, vector<int> &v2)
 {
     int min_size = v1.size() < v2.size() ? v1.size() : v2.size();
@@ -14,6 +12,7 @@ bool int_prefix(vector<int> &v1, vector<int> &v2)
 
     return true;
 }
+
 int main()
 {
     vector<int> v1 = {0, 1, 1, 2};
