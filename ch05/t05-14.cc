@@ -16,6 +16,7 @@ int main()
         if (str == prestr) {
             ++now_counter;
         } else {
+            ++now_counter;
             if (now_counter > max_counter) {
                 max_counter = now_counter;
                 max_str = prestr;
@@ -23,7 +24,12 @@ int main()
             prestr = str;
             now_counter = 0;
         }
+        // std::cout << max_counter << ' ' << prestr << ' ' << str << std::endl;
     }
+    if (now_counter + 1 > max_counter) {
+                max_counter = now_counter;
+                max_str = prestr;
+            }
     if (max_str.size() == 0)
         std::cout << "not exist such string" << '\n';
     else
