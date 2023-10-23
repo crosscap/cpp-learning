@@ -1,0 +1,4 @@
+(a) (sizeof x) + y
+(b) sizeof ((p->elem)[i])
+(c) (sizeof a) < b
+(d) sizeof (f())

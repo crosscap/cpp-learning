@@ -1,0 +1,1 @@
+unsigned int 可能只有16位使得 quiz1 | 1UL << 27 设置出现问题
