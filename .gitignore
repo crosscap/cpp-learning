@@ -1,4 +1,6 @@
 .vscode
 *.exe
 *.out
+*.o
+main
 tempCodeRunnerFile.*
