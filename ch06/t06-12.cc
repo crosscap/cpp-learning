@@ -1,4 +1,4 @@
-#include<cstdio>
+#include <cstdio>
 
 void swap(int &i1, int &i2)
 {
