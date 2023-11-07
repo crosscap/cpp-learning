@@ -28,6 +28,7 @@ public:
     Screen &displey(std::ostream &os) { do_display(os); return *this; }
     const Screen &displey(std::ostream &os) const
         { do_display(os); return *this; }
+    pos size();
 private:
     pos cursor = 0;
     pos height = 0, width = 0;
@@ -59,5 +60,10 @@ inline Screen &Screen::set(pos r, pos col, char ch)
 {
     contents[r * width + col] = ch;
     return *this;
+}
+
+inline Screen::pos Screen::size()
+{
+    return width * height;
 }
 #endif
