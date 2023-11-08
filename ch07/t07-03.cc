@@ -16,11 +16,11 @@ int main()
 
     if (read(cin, total)) {
         Sales_data trans;
-        while (read(cin, total)) {
+        while (read(cin, trans)) {
             if (total.isbn() == trans.isbn())
                 total.combine(trans);
             else {
-                print(cout, total);
+                print(cout, total) << endl;
                 total = trans;
             }
         }

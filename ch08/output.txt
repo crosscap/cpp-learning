@@ -1,0 +1,6 @@
+books 42 840 20
+magazines 20 140 7
+papers 90 360 4
+books 42 840 20
+magazines 20 140 7
+papers 90 360 4
