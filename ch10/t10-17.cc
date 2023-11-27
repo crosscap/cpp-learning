@@ -1,6 +1,7 @@
-#include "Sales_data.h"
 #include <algorithm>
 #include <vector>
+
+#include "Sales_data.h"
 
 using std::sort;
 using std::vector;

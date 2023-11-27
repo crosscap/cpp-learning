@@ -34,7 +34,7 @@ void beggies(vector<string> &words, vector<string>::size_type sz)
 	auto wc = find_if(words.begin(), words.end(), [sz](const string &a) { return a.size() >= sz; });
 	auto count = words.end() - wc;
 	cout << count << " " << make_plural(count, "word", "s")
-	     << " of length " << sz << " or longer" << endl;
+		 << " of length " << sz << " or longer" << endl;
 }
 
 void display_vs(const vector<string> &vs)
