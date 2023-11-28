@@ -2,27 +2,26 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
-#include <list>
 #include <vector>
 
 using std::back_inserter;
-using std::list;
+using std::istream_iterator;
+using std::ostream_iterator;
 using std::sort;
 using std::unique_copy;
 using std::vector;
 
 int main()
 {
-	int input, counter;
+	istream_iterator<int> int_iter(std::cin), eof;
+	ostream_iterator<int> out_iter(std::cout, " ");
 	vector<int> vi;
-	list<int> li;
-	std::ifstream input_file("numbers.txt");
 
-	while (input_file >> input)
-		vi.push_back(input);
+	while (int_iter != eof)
+		vi.push_back(*int_iter++);
 	sort(vi.begin(), vi.end());
-	unique_copy(vi.begin(), vi.end(), back_inserter(li));
-	for (auto &ri : li)
-		std::cout << ri << " ";
+	unique_copy(vi.begin(), vi.end(), out_iter);
 	std::cout << std::endl;
+
+	return 0;
 }

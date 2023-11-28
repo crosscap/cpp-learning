@@ -1,16 +1,16 @@
 #include <algorithm>
+#include <deque>
 #include <fstream>
 #include <iostream>
 #include <iterator>
 #include <list>
-#include <deque>
 
-using std::copy;
-using std::sort;
-using std::deque;
 using std::back_inserter;
-using std::inserter;
+using std::copy;
+using std::deque;
 using std::front_inserter;
+using std::inserter;
+using std::sort;
 
 void display_di(const deque<int> &di);
 
