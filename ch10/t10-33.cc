@@ -6,6 +6,18 @@ using std::string;
 using std::ostream_iterator;
 using std::istream_iterator;
 
+void detach_even_odd(string &input, string &output_odd, string &output_even);
+
+int main(int argc, char *argv[])
+{
+	if (argc == 4) {
+		string input(argv[1]), output_even(argv[2]), output_odd(argv[3]);
+		detach_even_odd(input, output_even, output_odd);
+	}
+
+	return 0;
+}
+
 void detach_even_odd(string &input, string &output_odd, string &output_even)
 {
 	std::ifstream in(input);
@@ -19,14 +31,4 @@ void detach_even_odd(string &input, string &output_odd, string &output_even)
 		else
 			even_iter = *in_iter++;
 	}
-}
-
-int main(int argc, char *argv[])
-{
-	if (argc == 4) {
-		string input(argv[1]), output_even(argv[2]), output_odd(argv[3]);
-		detach_even_odd(input, output_even, output_odd);
-	}
-
-	return 0;
 }
