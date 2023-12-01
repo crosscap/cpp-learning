@@ -19,8 +19,11 @@ int main()
 
 	while (inf >> word) {
 		clean_word(word);
-		if (exclude.find(word) == exclude.end())
-			++word_count[word];
+		if (exclude.find(word) == exclude.end()) {
+			auto ret = word_count.insert({word, 1});
+			if (!ret.second)
+				++ret.first->second;
+		}
 	}
 
 	for (const auto &w : word_count)
