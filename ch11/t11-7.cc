@@ -12,7 +12,7 @@ void add_new_family(map<string, vector<string>> &family, const string &fam_name,
 	family[fam_name] = childs;
 }
 
-void add_new_child(map<string, vector<string>> &family, const string fam_name, const string new_child)
+void add_new_child(map<string, vector<string>> &family, const string &fam_name, const string &new_child)
 {
 	family[fam_name].push_back(new_child);
 }
