@@ -1,16 +1,17 @@
+// 将程序中的 map 修改为 unordered_map 即可
 #include <iostream>
-#include <map>
+#include <unordered_map>
 #include <set>
 #include <string>
 
-using std::map;
+using std::unordered_map;
 using std::set;
 using std::string;
 
 int main()
 {
 	string word;
-	map<string, size_t> word_count;
+	unordered_map<string, size_t> word_count;
 	set<string> exclude = {"The", "But", "And", "Or", "An", "A",
 	                       "the", "but", "and", "or", "an", "a"};
 
