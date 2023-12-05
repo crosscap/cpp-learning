@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <unordered_set>
 
 class Sales_data
 {
@@ -38,4 +39,17 @@ double Sales_data::avg_price() const
 	else
 		return 0;
 }
+
+size_t hasher(const Sales_data &sd)
+{
+	return std::hash<std::string>() (sd.isbn());
+}
+
+bool eqOp(const Sales_data &lhs, const Sales_data &rhs)
+{
+	return lhs.isbn() == rhs.isbn();
+}
+
+using SD_multiset = std::unordered_multiset<Sales_data, decltype(hasher) *, decltype((eqOp))>;
+SD_multiset bookstore(42, hasher, eqOp);
 #endif
