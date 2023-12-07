@@ -31,18 +31,11 @@ public:
 	std::string &front() const;
 	std::string &back();
 	std::string &back() const;
-	StrBlobPtr begin() { return StrBlobPtr(*this); }
-	ConstStrBlobPtr begin() const { return ConstStrBlobPtr(*this); }
-	StrBlobPtr end()
-	{
-		auto ret = StrBlobPtr(*this, data->size());
-		return ret;
-	}
-	ConstStrBlobPtr end() const
-	{
-		auto ret = ConstStrBlobPtr(*this, data->size());
-		return ret;
-	}
+
+	StrBlobPtr begin();
+	ConstStrBlobPtr begin() const;
+	StrBlobPtr end();
+	ConstStrBlobPtr end() const;
 
 private:
 	std::shared_ptr<std::vector<std::string>> data;
@@ -82,3 +75,24 @@ private:
 	std::weak_ptr<std::vector<std::string>> wptr;
 	std::size_t curr;
 };
+
+inline StrBlobPtr StrBlob::begin()
+{
+	return StrBlobPtr(*this);
+}
+
+inline ConstStrBlobPtr StrBlob::begin() const
+{
+	return ConstStrBlobPtr(*this);
+}
+
+inline StrBlobPtr StrBlob::end()
+{
+	auto ret = StrBlobPtr(*this, data->size());
+	return ret;
+}
+inline ConstStrBlobPtr StrBlob::end() const
+{
+	auto ret = ConstStrBlobPtr(*this, data->size());
+	return ret;
+}
