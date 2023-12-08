@@ -47,10 +47,6 @@ public:
 	            shared_ptr<vector<string>> f)
 		: sought(s), lines(p), file(f) {}
 
-	set<line_no>::iterator begin() const { return lines->cbegin(); }
-	set<line_no>::iterator end() const { return lines->cend(); }
-	shared_ptr<vector<string>> get_file() { return file; }
-
 private:
 	string sought;
 	shared_ptr<set<line_no>> lines;
