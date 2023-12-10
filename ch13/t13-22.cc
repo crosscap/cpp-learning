@@ -5,8 +5,9 @@ class HasPtr
 public:
 	HasPtr(const std::string &s = std::string())
 		: ps(new std::string(s)), i(0) {}
-	HasPtr(const HasPtr &orig);
-	~HasPtr();
+	HasPtr(const HasPtr &orig)
+		: ps(new std::string(*orig.ps)), i(orig.i) {}
+	~HasPtr() { delete ps; }
 
 	HasPtr &operator=(const HasPtr &);
 
@@ -15,17 +16,11 @@ private:
 	int i;
 };
 
-HasPtr::HasPtr(const HasPtr &orig) : ps(new std::string(*orig.ps)), i(orig.i) {}
-
-HasPtr::~HasPtr()
-{
-	delete ps;
-}
-
 HasPtr &HasPtr::operator=(const HasPtr &rhs)
 {
+	auto newp = new std::string(*rhs.ps);
 	delete ps;
-	ps = new std::string(*rhs.ps);
+	ps = newp;
 	i = rhs.i;
 
 	return *this;
