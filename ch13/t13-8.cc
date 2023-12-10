@@ -16,8 +16,7 @@ private:
 HasPtr::HasPtr(const HasPtr &orig) :ps(new std::string(*orig.ps)), i(orig.i) {}
 HasPtr &HasPtr::operator=(const HasPtr &rhs)
 {
-	if (ps)
-		delete ps;
+	delete ps;
 	ps = new std::string(*rhs.ps);
 	i = rhs.i;
 

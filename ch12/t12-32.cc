@@ -35,7 +35,7 @@ public:
 
 	StrBlob() : data(make_shared<vector<string>>()) {}
 	StrBlob(std::initializer_list<string> il)
-		: data(make_shared<vector<string>>()) {}
+		: data(make_shared<vector<string>>(il)) {}
 
 	size_type size() const { return data->size(); }
 	bool empty() const { return data->empty(); }
