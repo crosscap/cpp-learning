@@ -14,7 +14,7 @@ public:
 	Sales_data() = default;
 	Sales_data(const std::string &s, unsigned n, double p)
 		: bookNo(s), units_sold(n), revenue(p * n) {}
-    Sales_data(const Sales_data &);
+	Sales_data(const Sales_data &);
 	explicit Sales_data(const std::string &s) : bookNo(s) {}
 	explicit Sales_data(std::istream &is) { read(is, *this); }
 
