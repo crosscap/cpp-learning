@@ -2,16 +2,19 @@
 
 class HasPtr
 {
-    friend void swap(HasPtr &, HasPtr &);
+	friend void swap(HasPtr &, HasPtr &);
+
 public:
 	HasPtr(const std::string &s = std::string())
-		: ps(new std::string(s)), i(0), use(new std::size_t(1)) {}
+		: ps(new std::string(s)), i(0), use(new std::size_t(1)) { }
 	HasPtr(const HasPtr &orig)
 		: ps(orig.ps), i(orig.i), use(orig.use) { ++*use; }
+	HasPtr(HasPtr &&p) noexcept
+		: ps(p.ps), i(p.i) { p.ps = 0; }
 	~HasPtr();
 
 	// HasPtr &operator=(const HasPtr &);
-    HasPtr &operator=(HasPtr);
+	HasPtr &operator=(HasPtr);
 
 private:
 	std::string *ps;
@@ -43,13 +46,13 @@ HasPtr::~HasPtr()
 
 HasPtr &HasPtr::operator=(HasPtr rhs)
 {
-    swap(*this, rhs);
-    return *this;
+	swap(*this, rhs);
+	return *this;
 }
 
 inline void swap(HasPtr &lhs, HasPtr &rhs)
 {
-    using std::swap;
-    swap(lhs.ps, rhs.ps);
-    swap(lhs.i, rhs.i);
+	using std::swap;
+	swap(lhs.ps, rhs.ps);
+	swap(lhs.i, rhs.i);
 }
