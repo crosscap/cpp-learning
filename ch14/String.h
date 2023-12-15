@@ -22,9 +22,12 @@ public:
 	String(const char *);
 	String(const String &);
 	String(String &&) noexcept;
+	~String();
+
 	String &operator=(const String &);
 	String &operator=(String &&rhs) noexcept;
-	~String();
+	char operator[](std::size_t n) { return elements[n]; }
+	const char operator[](std::size_t n) const { return elements[n]; }
 
 	void push_back(const char);
 	size_t size() const { return first_free - elements; }

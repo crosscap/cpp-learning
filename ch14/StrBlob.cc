@@ -67,17 +67,49 @@ bool operator>=(const StrBlob &lhs, const StrBlob &rhs)
 }
 
 // function of StrBlobPtr
-std::string &StrBlobPtr::deref() const
+StrBlobPtr &StrBlobPtr::operator++()
+{
+	check(curr, "incerement past end of StrBlobPtr");
+	++curr;
+	return *this;
+}
+
+StrBlobPtr &StrBlobPtr::operator--()
+{
+	--curr;
+	check(curr, "decerement past begin of StrBlobPtr");
+	return *this;
+}
+
+StrBlobPtr StrBlobPtr::operator++(int)
+{
+	StrBlobPtr ret = *this;
+	++*this;
+	return ret;
+}
+
+StrBlobPtr StrBlobPtr::operator--(int)
+{
+	StrBlobPtr ret = *this;
+	--*this;
+	return ret;
+}
+
+std::string &StrBlobPtr::operator*() const
 {
 	auto p = check(curr, "dereference past end");
 	return (*p)[curr];
 }
 
-StrBlobPtr &StrBlobPtr::incr()
+std::string *StrBlobPtr::operator->() const
 {
-	check(curr, "incerement past end of StrBlobPtr");
-	++curr;
-	return *this;
+	return &this->operator*();
+}
+
+std::string &StrBlobPtr::deref() const
+{
+	auto p = check(curr, "dereference past end");
+	return (*p)[curr];
 }
 
 std::shared_ptr<std::vector<std::string>>
@@ -89,15 +121,6 @@ StrBlobPtr::check(std::size_t i, const std::string &msg) const
 	if (i >= ret->size())
 		throw std::out_of_range(msg);
 	return ret;
-}
-
-bool StrBlobPtrEqual(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
-{
-	auto l = lhs.wptr.lock(), r = rhs.wptr.lock();
-	if (l == r)
-		return (!r || lhs.curr == rhs.curr);
-	else
-		return false;
 }
 
 bool operator==(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
@@ -132,7 +155,6 @@ bool operator<=(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
 		return false;
 }
 
-
 bool operator>(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
 {
 	return !(lhs <= rhs);
@@ -141,4 +163,18 @@ bool operator>(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
 bool operator>=(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
 {
 	return !(lhs < rhs);
+}
+
+StrBlobPtr operator+(const StrBlobPtr &lhs, int n)
+{
+	StrBlobPtr ret = lhs;
+	ret.curr += n;
+	return ret;
+}
+
+StrBlobPtr operator-(const StrBlobPtr &lhs, int n)
+{
+	StrBlobPtr ret = lhs;
+	ret.curr += n;
+	return ret;
 }

@@ -20,9 +20,13 @@ public:
 	StrVec(std::initializer_list<std::string>);
 	StrVec(const StrVec &);
 	StrVec(StrVec &&) noexcept;
+	~StrVec();
+
 	StrVec &operator=(const StrVec &);
 	StrVec &operator=(StrVec &&) noexcept;
-	~StrVec();
+	StrVec &operator=(std::initializer_list<std::string>);
+	std::string &operator[](std::size_t n) { return elements[n]; }
+	const std::string &operator[](std::size_t n) const { return elements[n]; }
 
 	void push_back(const std::string &);
 	void push_back(std::string &&);

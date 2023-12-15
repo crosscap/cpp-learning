@@ -15,10 +15,6 @@ class Sales_data
 	friend std::ostream &operator<<(std::ostream &, const Sales_data &);
 	friend bool operator==(const Sales_data &, const Sales_data &);
 	friend bool operator!=(const Sales_data &, const Sales_data &);
-	friend bool operator<(const Sales_data &, const Sales_data &);
-	friend bool operator<=(const Sales_data &, const Sales_data &);
-	friend bool operator>(const Sales_data &, const Sales_data &);
-	friend bool operator>=(const Sales_data &, const Sales_data &);
 
 public:
 	Sales_data() = default;
@@ -29,7 +25,8 @@ public:
 		: bookNo(s) { }
 	explicit Sales_data(std::istream &is) { read(is, *this); }
 
-	Sales_data &operator=(const Sales_data &rhs);
+	Sales_data &operator=(const Sales_data &);
+	Sales_data &operator=(const std::string &);
 	Sales_data &operator+=(const Sales_data &);
 	Sales_data &operator-=(const Sales_data &);
 
@@ -61,8 +58,4 @@ std::istream &operator>>(std::istream &, Sales_data &);
 std::ostream &operator<<(std::ostream &, const Sales_data &);
 bool operator==(const Sales_data &, const Sales_data &);
 bool operator!=(const Sales_data &, const Sales_data &);
-bool operator<(const Sales_data &, const Sales_data &);
-bool operator<=(const Sales_data &, const Sales_data &);
-bool operator>(const Sales_data &, const Sales_data &);
-bool operator>=(const Sales_data &, const Sales_data &);
 #endif

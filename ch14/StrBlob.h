@@ -16,6 +16,8 @@ class StrBlobPtr;
 class StrBlob
 {
 	friend class StrBlobPtr;
+	friend class ConstStrBlobPtr;
+
 	friend bool operator==(const StrBlob &, const StrBlob &);
 	friend bool operator!=(const StrBlob &, const StrBlob &);
 	friend bool operator<(const StrBlob &, const StrBlob &);
@@ -26,9 +28,13 @@ class StrBlob
 public:
 	typedef std::vector<std::string>::size_type size_type;
 
-	StrBlob() : data(std::make_shared<vector<string>>()) {}
+	StrBlob()
+		: data(std::make_shared<vector<string>>()) { }
 	StrBlob(std::initializer_list<std::string> il)
-		: data(std::make_shared<vector<string>>(il)) {}
+		: data(std::make_shared<vector<string>>(il)) { }
+
+	std::string &operator[](std::size_t n) { return (*data)[n]; }
+	const std::string &operator[](std::size_t n) const { return (*data)[n]; }
 
 	size_type size() const { return data->size(); }
 	bool empty() const { return data->empty(); }
@@ -48,17 +54,29 @@ private:
 
 class StrBlobPtr
 {
-	friend bool StrBlobPtrEqual(const StrBlobPtr &, const StrBlobPtr &);
 	friend bool operator==(const StrBlobPtr &, const StrBlobPtr &);
 	friend bool operator!=(const StrBlobPtr &, const StrBlobPtr &);
 	friend bool operator<(const StrBlobPtr &, const StrBlobPtr &);
 	friend bool operator<=(const StrBlobPtr &, const StrBlobPtr &);
 	friend bool operator>(const StrBlobPtr &, const StrBlobPtr &);
 	friend bool operator>=(const StrBlobPtr &, const StrBlobPtr &);
+	friend StrBlobPtr operator+(const StrBlobPtr &, int);
+	friend StrBlobPtr operator-(const StrBlobPtr &, int);
 
 public:
-	StrBlobPtr() : curr(0) {}
-	StrBlobPtr(StrBlob &a, size_t sz = 0) : wptr(a.data), curr(sz) {}
+	StrBlobPtr()
+		: curr(0) { }
+	StrBlobPtr(StrBlob &a, size_t sz = 0)
+		: wptr(a.data), curr(sz) { }
+
+	std::string operator[](std::size_t n) { return (*wptr.lock())[n]; }
+	const std::string operator[](std::size_t n) const { return (*wptr.lock())[n]; }
+	StrBlobPtr &operator++();
+	StrBlobPtr &operator--();
+	StrBlobPtr operator++(int);
+	StrBlobPtr operator--(int);
+	std::string &operator*() const;
+	std::string *operator->() const;
 
 	std::string &deref() const;
 	StrBlobPtr &incr();
@@ -77,13 +95,15 @@ bool operator<(const StrBlob &, const StrBlob &);
 bool operator<=(const StrBlob &, const StrBlob &);
 bool operator>(const StrBlob &, const StrBlob &);
 bool operator>=(const StrBlob &, const StrBlob &);
-bool StrBlobPtrEqual(const StrBlobPtr &, const StrBlobPtr &);
+
 bool operator==(const StrBlobPtr &, const StrBlobPtr &);
 bool operator!=(const StrBlobPtr &, const StrBlobPtr &);
 bool operator<(const StrBlobPtr &, const StrBlobPtr &);
 bool operator<=(const StrBlobPtr &, const StrBlobPtr &);
 bool operator>(const StrBlobPtr &, const StrBlobPtr &);
 bool operator>=(const StrBlobPtr &, const StrBlobPtr &);
+StrBlobPtr operator+(const StrBlobPtr &, int);
+StrBlobPtr operator-(const StrBlobPtr &, int);
 
 inline StrBlobPtr StrBlob::begin()
 {
