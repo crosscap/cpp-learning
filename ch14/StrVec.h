@@ -39,10 +39,8 @@ public:
 
 private:
 	static std::allocator<std::string> alloc;
-	void chk_n_alloc()
-	{
-		if (size() == capacity()) reallocate();
-	}
+	void chk_n_alloc();
+
 	std::pair<std::string *, std::string *>
 	alloc_n_copy(const std::string *, const std::string *);
 	void free();
@@ -61,4 +59,9 @@ bool operator<(const StrVec &, const StrVec &);
 bool operator<=(const StrVec &, const StrVec &);
 bool operator>(const StrVec &, const StrVec &);
 bool operator>=(const StrVec &, const StrVec &);
+
+inline void StrVec::chk_n_alloc()
+{
+	if (size() == capacity()) reallocate();
+}
 #endif
