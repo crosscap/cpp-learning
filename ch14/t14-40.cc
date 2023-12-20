@@ -18,7 +18,8 @@ void elimDups(vector<string> &vs);
 void beggies(vector<string> &words, vector<string>::size_type sz);
 void display_vs(const vector<string> &vs);
 string make_plural(int i, const string &word, const string &behind);
-class BigCmp{
+class BigCmp
+{
 public:
 	bool operator()(const string &s1, const string &s2) { return s1.size() < s2.size(); }
 };
