@@ -7,8 +7,10 @@ using std::vector;
 class isEqual
 {
 public:
-	isEqual(int i = 0) : val(i) {}
+	isEqual(int i = 0)
+		: val(i) { }
 	bool operator()(int comp) { return val == comp; }
+
 private:
 	int val;
 };

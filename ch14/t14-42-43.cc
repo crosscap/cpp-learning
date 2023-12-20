@@ -1,15 +1,15 @@
 #include <algorithm>
 #include <functional>
-#include <string>
-#include <vector>
 #include <iostream>
 #include <set>
+#include <string>
+#include <vector>
 
 using std::bind;
 using std::greater;
+using std::not_equal_to;
 using std::string;
 using std::vector;
-using std::not_equal_to;
 
 using namespace std::placeholders;
 
@@ -39,4 +39,3 @@ int main()
 	std::cout << (dividedByAll(24, divided) ? "canbe" : "can't") << std::endl;
 	return 0;
 }
-

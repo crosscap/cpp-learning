@@ -23,7 +23,7 @@ int sub(int i, int j)
 
 float sub(float i, float j)
 {
-	return i -j;
+	return i - j;
 }
 
 int power(int i, int j)
@@ -44,8 +44,8 @@ int main()
 {
 	int (*fp)(int, int) = sub;
 	map<string, function<int(int, int)>> binop{
-		{"+", [](int i, int j) { return add(i, j); }},
-		{"-", fp},
+		{"+", [](int i, int j) { return add(i, j); }}, // 消除二义性
+		{"-", fp},                                     // 消除二义性
 		{"*", [](int i, int j) { return i * j; }},
 		{"/", divide()},
 		{"%", mod},
