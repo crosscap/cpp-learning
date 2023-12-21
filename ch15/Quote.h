@@ -54,7 +54,7 @@ private:
 	double discount = 0.0;
 };
 
-inline ostream &Quote::debug(ostream & os) const
+inline ostream &Quote::debug(ostream &os) const
 {
 	os << "bookNo: " << bookNo << " price: " << price;
 }
@@ -67,7 +67,7 @@ inline double Bulk_quote::net_price(std::size_t cnt) const
 		return cnt * price;
 }
 
-inline ostream &Bulk_quote::debug(ostream & os) const
+inline ostream &Bulk_quote::debug(ostream &os) const
 {
 	Quote::debug() << " ";
 	os << "min_qty: " << min_qty << " discount: " << discount;

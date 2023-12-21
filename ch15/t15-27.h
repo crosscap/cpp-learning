@@ -22,9 +22,6 @@ public:
 	virtual double net_price(std::size_t n) const { return n * price; }
 	virtual ostream &debug(ostream & = cout) const;
 
-	virtual Quote *clone() const & { return new Quote(*this); }
-	virtual Quote *clone() && { return new Quote(std::move(*this)); }
-
 private:
 	std::string bookNo;
 
@@ -50,21 +47,7 @@ class Bulk_quote : public Disc_quote
 {
 public:
 	Bulk_quote() = default;
-	Bulk_quote(const std::string &book, double price, size_t qty, double disc)
-		: Disc_quote(book, price, qty, disc) { }
-
-	double net_price(std::size_t n) const override;
-
-	Bulk_quote *clone() const & override { return new Bulk_quote(*this); }
-	Bulk_quote *clone() && override { return new Bulk_quote(std::move(*this)); }
-};
-
-class Limit_quote : public Disc_quote
-{
-public:
-	Limit_quote() = default;
-	Limit_quote(const std::string &book, double price, size_t qty, double disc)
-		: Disc_quote(book, price, qty, disc) { }
+	using Disc_quote::Disc_quote;
 	double net_price(std::size_t n) const override;
 };
 
@@ -80,12 +63,4 @@ inline double Bulk_quote::net_price(std::size_t cnt) const
 		return cnt * (1.0 - discount) * price;
 	else
 		return cnt * price;
-}
-
-inline double Limit_quote::net_price(std::size_t cnt) const
-{
-	if (cnt <= quantity)
-		return cnt * (1.0 - discount) * price;
-	else
-		return quantity * (1.0 - discount) * price + (cnt - quantity) * price;
 }
