@@ -1,130 +1,43 @@
-#include <fstream>
-#include <iostream>
-#include <map>
-#include <memory>
-#include <set>
-#include <sstream>
-#include <string>
-#include <vector>
+#include <algorithm>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::ifstream;
-using std::istream;
-using std::istringstream;
-using std::make_shared;
-using std::map;
-using std::ostream;
-using std::set;
-using std::shared_ptr;
-using std::string;
-using std::vector;
+#include "Query.h"
 
-using line_no = vector<string>::size_type;
+using std::inserter;
 
-class QueryResult;
-
-class TextQueriy
+std::ostream &operator<<(std::ostream &os, const Query &query)
 {
-public:
-	TextQueriy(ifstream &infile);
+	return os << query.rep();
+}
 
-	QueryResult query(const string &s) const;
-
-private:
-	shared_ptr<vector<string>> file;
-	map<string, shared_ptr<set<line_no>>> wm;
-};
-
-class QueryResult
+QueryResult OrQuery::eval(const TextQuery &text) const
 {
-	friend ostream &print(ostream &outfile, const QueryResult &query);
+	auto right = rhs.eval(text), left = lhs.eval(text);
+	auto ret_lines = std::make_shared<std::set<line_no>>(left.begin(), left.end());
+	ret_lines->insert(right.begin(), right.end());
+	return QueryResult(rep(), ret_lines, left.get_file());
+}
 
-public:
-	QueryResult(const string &s,
-	            shared_ptr<set<line_no>> p,
-	            shared_ptr<vector<string>> f)
-		: sought(s), lines(p), file(f) { }
-
-private:
-	string sought;
-	shared_ptr<set<line_no>> lines;
-	shared_ptr<vector<string>> file;
-};
-
-TextQueriy::TextQueriy(ifstream &infile)
-	: file(new vector<string>)
+QueryResult AndQuery::eval(const TextQuery &text) const
 {
-	string text;
-	while (getline(infile, text)) {
-		file->push_back(text);
-		int n = file->size() - 1;
-		istringstream line(text);
-		string word;
-		while (line >> word) {
-			auto &lines = wm[word];
-			if (!lines)
-				lines.reset(new set<line_no>);
-			lines->insert(n);
-		}
+	auto right = rhs.eval(text), left = lhs.eval(text);
+	auto ret_lines = std::make_shared<std::set<line_no>>();
+	std::set_intersection(left.begin(), left.end(),
+	                      right.begin(), right.end(),
+	                      inserter(*ret_lines, ret_lines->begin()));
+	return QueryResult(rep(), ret_lines, left.get_file());
+}
+
+QueryResult NotQuery::eval(const TextQuery &text) const
+{
+	auto result = query.eval(text);
+	auto ret_lines = std::make_shared<std::set<line_no>>();
+	auto beg = result.begin(), end = result.end();
+	auto sz = result.get_file()->size();
+	for (size_t n = 0; n != sz; ++n) {
+		if (beg == end || *beg != n)
+			ret_lines->insert(n);
+		else
+			++beg;
 	}
-}
-
-QueryResult TextQueriy::query(const string &sought) const
-{
-	static shared_ptr<set<line_no>> nodata(new set<line_no>);
-
-	auto loc = wm.find(sought);
-	if (loc == wm.end())
-		return QueryResult(sought, nodata, file);
-	else
-		return QueryResult(sought, loc->second, file);
-}
-
-ostream &print(ostream &os, const QueryResult &query)
-{
-	os << query.sought << " occurs " << query.lines->size() << " times" << endl;
-	for (auto num : *query.lines)
-		cout << "\t(line " << num + 1 << " ) " << *(query.file->begin() + num) << endl;
-
-	return os;
-}
-
-void runQueries(ifstream &infile)
-{
-	TextQueriy tq(infile);
-
-	while (true) {
-		cout << "enter word to look for, or q to quit: ";
-		string s;
-		if (!(cin >> s) || s == "q")
-			break;
-		print(cout, tq.query(s)) << endl;
-	}
-}
-
-string make_plural(int i, const string &word, const string &behind)
-{
-	return i > 1 ? word + behind : word;
-}
-
-void clean_word(string &str)
-{
-	for (auto iter = str.begin(); iter != str.end();)
-		if (iter == str.end() - 1 && !isalnum(*iter))
-			iter = str.erase(iter);
-		else {
-			*iter = tolower(*iter);
-			++iter;
-		}
-}
-
-int main()
-{
-	ifstream ifile("input.txt");
-
-	runQueries(ifile);
-
-	return 0;
+	return QueryResult(rep(), ret_lines, result.get_file());
 }
