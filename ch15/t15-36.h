@@ -30,7 +30,11 @@ class Query
 public:
 	Query(const std::string &);
 	// QueryResult eval(const TextQuery &t) const { return q->eval(t); }
-	std::string rep() const { std::cout << "Query" << std::endl; return q->rep(); }
+	std::string rep() const
+	{
+		std::cout << "Query" << std::endl;
+		return q->rep();
+	}
 
 private:
 	Query(std::shared_ptr<Query_base> query)
@@ -44,7 +48,11 @@ class WordQuery : public Query_base
 	WordQuery(const std::string &s)
 		: query_word(s) { std::cout << "WordQuery(const std::string &s) " << rep() << std::endl; }
 	// QueryResult eval(const TextQuery &t) const override { return t.query(query_word); }
-	std::string rep() const override { std::cout << "WordQuery" << std::endl; return query_word; }
+	std::string rep() const override
+	{
+		std::cout << "WordQuery" << std::endl;
+		return query_word;
+	}
 	std::string query_word;
 };
 
@@ -54,7 +62,11 @@ class NotQuery : public Query_base
 	NotQuery(const Query &q)
 		: query(q) { std::cout << "NotQuery(const Query &q) " << rep() << std::endl; }
 	// QueryResult eval(const TextQuery &) const override;
-	std::string rep() const override { std::cout << "NotQuery" << std::endl; return "~(" + query.rep() + ")"; }
+	std::string rep() const override
+	{
+		std::cout << "NotQuery" << std::endl;
+		return "~(" + query.rep() + ")";
+	}
 	Query query;
 };
 
@@ -63,7 +75,11 @@ class BinaryQuery : public Query_base
 protected:
 	BinaryQuery(const Query &l, const Query &r, std::string s)
 		: lhs(l), rhs(r), opSym(s) { std::cout << "BinaryQuery(const Query &l, const Query &r, std::string s) " << rep() << std::endl; }
-	std::string rep() const override { std::cout << "BinaryQuery " << opSym << std::endl; return "(" + lhs.rep() + " " + opSym + " " + rhs.rep() + ")"; }
+	std::string rep() const override
+	{
+		std::cout << "BinaryQuery " << opSym << std::endl;
+		return "(" + lhs.rep() + " " + opSym + " " + rhs.rep() + ")";
+	}
 	Query lhs, rhs;
 	std::string opSym;
 };
