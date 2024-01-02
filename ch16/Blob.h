@@ -30,6 +30,8 @@ public:
 
 	Blob();
 	Blob(std::initializer_list<T> il);
+	template <typename It>
+	Blob(It, It);
 
 	size_type size() const { return data->size(); }
 	bool empty() const { return data->empty(); }
@@ -57,7 +59,12 @@ inline Blob<T>::Blob()
 
 template <typename T>
 inline Blob<T>::Blob(std::initializer_list<T> il)
-	: data(std::make_shared<vector<string>>(il)) { }
+	: data(std::make_shared<vector<T>>(il)) { }
+
+template <typename T>
+template <typename It>
+inline Blob<T>::Blob(It beg, It end)
+	: data(std::make_shared<vector<T>>(beg, end)) { }
 
 template <typename T>
 void Blob<T>::check(size_type i, const string &msg) const
