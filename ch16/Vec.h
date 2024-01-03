@@ -32,6 +32,9 @@ public:
 	void reserve(size_t n);
 	void resize(size_t n, const T &);
 
+	template <class... Args>
+	void emplace_back(Args &&...);
+
 private:
 	static std::allocator<T> alloc;
 	void chk_n_alloc()
@@ -194,5 +197,13 @@ void Vec<T>::reallocate(size_t newcapacity)
 	elements = newdata;
 	first_free = dest;
 	cap = elements + newcapacity;
+}
+
+template <typename T>
+template <class... Args>
+inline void Vec<T>::emplace_back(Args &&...args)
+{
+	chk_n_alloc();
+	alloc.construct(first_free++, std::forward<Args>(args)...);
 }
 #endif
