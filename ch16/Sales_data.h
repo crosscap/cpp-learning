@@ -4,6 +4,24 @@
 #include <iostream>
 #include <string>
 
+namespace std
+{
+template <>
+struct hash<Sales_data> {
+	typedef size_t result_type;
+	typedef Sales_data argument_type;
+	size_t operator()(const Sales_data &s) const;
+};
+size_t hash<Sales_data>::operator()(const Sales_data &s) const
+{
+	return hash<string>()(s.bookNo) ^
+	       hash<unsigned int>()(s.units_sold) ^
+	       hash<double>()(s.revenue);
+}
+}
+
+// template <class T> class std::hash;
+
 class Sales_data
 {
 	friend Sales_data add(const Sales_data &, const Sales_data &);
@@ -15,6 +33,8 @@ class Sales_data
 	friend std::ostream &operator<<(std::ostream &, const Sales_data &);
 	friend bool operator==(const Sales_data &, const Sales_data &);
 	friend bool operator!=(const Sales_data &, const Sales_data &);
+
+	friend class std::hash<Sales_data>;
 
 public:
 	Sales_data() = default;
