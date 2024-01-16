@@ -1,0 +1,3 @@
+(a) throw new exceptionType();
+(b) throw;
+(c) throw 11;
