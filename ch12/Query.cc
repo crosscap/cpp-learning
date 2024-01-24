@@ -25,10 +25,10 @@ using line_no = vector<string>::size_type;
 
 class QueryResult;
 
-class TextQueriy
+class TextQuery
 {
 public:
-	TextQueriy(ifstream &infile);
+	TextQuery(ifstream &infile);
 
 	QueryResult query(const string &s) const;
 
@@ -53,7 +53,7 @@ private:
 	shared_ptr<vector<string>> file;
 };
 
-TextQueriy::TextQueriy(ifstream &infile) : file(new vector<string>)
+TextQuery::TextQuery(ifstream &infile) : file(new vector<string>)
 {
 	string text;
 	while (getline(infile, text)) {
@@ -70,7 +70,7 @@ TextQueriy::TextQueriy(ifstream &infile) : file(new vector<string>)
 	}
 }
 
-QueryResult TextQueriy::query(const string &sought) const
+QueryResult TextQuery::query(const string &sought) const
 {
 	static shared_ptr<set<line_no>> nodata(new set<line_no>);
 
@@ -92,7 +92,7 @@ ostream &print(ostream &os, const QueryResult &query)
 
 void runQueries(ifstream &infile)
 {
-	TextQueriy tq(infile);
+	TextQuery tq(infile);
 
 	while (true) {
 		cout << "enter word to look for, or q to quit: ";

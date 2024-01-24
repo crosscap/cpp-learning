@@ -1,6 +1,7 @@
 #ifndef SALES_DATA_H
 #define SALES_DATA_H
 
+#include <functional>
 #include <iostream>
 #include <string>
 
@@ -18,12 +19,14 @@ size_t hash<Sales_data>::operator()(const Sales_data &s) const
 	       hash<unsigned int>()(s.units_sold) ^
 	       hash<double>()(s.revenue);
 }
-}
+} // namespace std
 
 // template <class T> class std::hash;
 
 class Sales_data
 {
+	friend class std::hash<Sales_data>;
+
 	friend Sales_data add(const Sales_data &, const Sales_data &);
 	friend std::istream &read(std::istream &, Sales_data &);
 	friend std::ostream &print(std::ostream &, const Sales_data &);
@@ -33,8 +36,6 @@ class Sales_data
 	friend std::ostream &operator<<(std::ostream &, const Sales_data &);
 	friend bool operator==(const Sales_data &, const Sales_data &);
 	friend bool operator!=(const Sales_data &, const Sales_data &);
-
-	friend class std::hash<Sales_data>;
 
 public:
 	Sales_data() = default;

@@ -6,6 +6,7 @@
 
 #include "bookstoreError.h"
 
+
 class Sales_data
 {
 	friend Sales_data add(const Sales_data &, const Sales_data &);
@@ -60,4 +61,5 @@ std::istream &operator>>(std::istream &, Sales_data &);
 std::ostream &operator<<(std::ostream &, const Sales_data &);
 bool operator==(const Sales_data &, const Sales_data &);
 bool operator!=(const Sales_data &, const Sales_data &);
+
 #endif

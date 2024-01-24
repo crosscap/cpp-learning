@@ -1,5 +1,7 @@
-#include "Sales_data.h"
+#include "cplusplus_primer_Sales_data.h"
 
+namespace cplusplus_primer
+{
 Sales_data::Sales_data(const Sales_data &orig)
 	: bookNo(orig.bookNo), units_sold(orig.units_sold), revenue(orig.revenue) { }
 
@@ -106,3 +108,4 @@ bool operator!=(const Sales_data &lhs, const Sales_data &rhs)
 {
 	return !(lhs == rhs);
 }
+} // namespace cplusplus_primer
