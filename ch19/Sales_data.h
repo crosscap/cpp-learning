@@ -4,8 +4,6 @@
 #include <iostream>
 #include <string>
 
-#include "bookstoreError.h"
-
 class Sales_data
 {
 	friend Sales_data add(const Sales_data &, const Sales_data &);
@@ -35,8 +33,9 @@ public:
 	std::string isbn() const { return bookNo; }
 	Sales_data &combine(const Sales_data &);
 
-private:
 	inline double avg_price() const;
+
+private:
 
 	std::string bookNo;
 	unsigned int units_sold = 0;
@@ -60,5 +59,4 @@ std::istream &operator>>(std::istream &, Sales_data &);
 std::ostream &operator<<(std::ostream &, const Sales_data &);
 bool operator==(const Sales_data &, const Sales_data &);
 bool operator!=(const Sales_data &, const Sales_data &);
-
 #endif
