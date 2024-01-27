@@ -10,60 +10,93 @@ class Window_mgr;
 
 class Screen
 {
-    friend class Window_mgr;
+	friend class Window_mgr;
+
 public:
-    typedef std::string::size_type pos;
+	typedef std::string::size_type pos;
+	using Action = Screen &(Screen::*)();
+	enum Directions { HOME,
+		              FORWARD,
+		              BACK,
+		              UP,
+		              DOWN };
 
-    Screen() = default;
-    Screen(pos ht, pos wd) : height(ht), width(wd), contents(ht * wd, ' ') { }
-    Screen(pos ht, pos wd, char c)
-        : height(ht), width(wd), contents(ht * wd, c) { }
+	Screen() = default;
+	Screen(pos ht, pos wd)
+		: height(ht), width(wd), contents(ht * wd, ' ') { }
+	Screen(pos ht, pos wd, char c)
+		: height(ht), width(wd), contents(ht * wd, c) { }
 
-    char get() const { return contents[cursor]; }
-    inline char get(pos ht, pos wd) const;
+	char get() const { return contents[cursor]; }
+	inline char get(pos ht, pos wd) const;
 
-    Screen &set(char);
-    Screen &set(pos, pos, char);
-    Screen &move(pos r, pos c);
-    Screen &displey(std::ostream &os) { do_display(os); return *this; }
-    const Screen &displey(std::ostream &os) const
-        { do_display(os); return *this; }
-    pos size();
+	Screen &set(char);
+	Screen &set(pos, pos, char);
+	Screen &move(pos r, pos c);
+	Screen &move(Directions);
+	Screen &displey(std::ostream &os);
+	const Screen &displey(std::ostream &os) const;
+	pos size();
+
+	Screen &home();
+	Screen &forward();
+	Screen &back();
+	Screen &up();
+	Screen &down();
+
+	static const pos Screen::*get_cursor_pos() { return &Screen::cursor; }
+
 private:
-    pos cursor = 0;
-    pos height = 0, width = 0;
-    std::string contents;
+	pos cursor = 0;
+	pos height = 0, width = 0;
+	std::string contents;
 
-    void do_display(std::ostream &os) const { os << contents; }
+	void do_display(std::ostream &os) const { os << contents; }
+
+	static Action Menu[];
 };
 
 inline Screen &Screen::move(pos r, pos c)
 {
-    pos row = r * width;
-    cursor = row + c;
-    return *this;
+	pos row = r * width;
+	cursor = row + c;
+	return *this;
+}
+
+inline Screen &Screen::move(Directions cm)
+{
+	return (this->*Menu[cm])();
 }
 
 char Screen::get(pos r, pos c) const
 {
-    pos row = r * width;
-    return contents[row + c];
+	pos row = r * width;
+	return contents[row + c];
 }
 
 inline Screen &Screen::set(char c)
 {
-    contents[cursor] = c;
-    return *this;
+	contents[cursor] = c;
+	return *this;
 }
 
-inline Screen &Screen::set(pos r, pos col, char ch)
+Screen &Screen::displey(std::ostream &os)
 {
-    contents[r * width + col] = ch;
-    return *this;
+	do_display(os);
+	return *this;
+}
+const Screen &Screen::displey(std::ostream &os) const
+{
+	do_display(os);
+	return *this;
 }
 
-inline Screen::pos Screen::size()
-{
-    return width * height;
-}
+Screen::Action Screen::Menu[] = {
+	&Screen::home,
+	&Screen::forward,
+	&Screen::back,
+	&Screen::up,
+	&Screen::down
+};
+
 #endif
