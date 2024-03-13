@@ -1,12 +1,15 @@
 # README
 
-## introduce
+## Introduce
 
 some codes when I learned C++
 
 not full same to codes in books
 
-## Finished books list
+## Books list
 
-* Essential C++ (essential)
-* C++ Primer (CPPP)
+- [x] Essential C++ (essential)
+- [x] C++ Primer (CPPP)
+- [ ] Effective STL (ESTL)
+- [ ] Effective C++ (ECPP)
+- [ ] More Effective C++ (MECPP)
