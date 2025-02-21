@@ -10,6 +10,6 @@ not full same to codes in books
 
 - [x] Essential C++ (essential)
 - [x] C++ Primer (CPPP)
-- [ ] Effective STL (ESTL)
-- [ ] Effective C++ (ECPP)
+- [x] Effective STL (ESTL)
+- [x] Effective C++ (ECPP)
 - [ ] More Effective C++ (MECPP)
