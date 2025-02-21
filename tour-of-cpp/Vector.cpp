@@ -1,11 +1,12 @@
-struct Vector
+class Vector
 {
-    double* elem;
-    int sz;
-};
+public:
+	Vector(int s)
+		: elem{new double[s]}, sz{s} { }
+	double& operator[](int i) { return elem[i]; }
+	int size() { return sz; }
 
-void vector_init(Vector& v, int s)
-{
-    v.elem = new double[s];
-    v.sz = s;
-}
+private:
+	double* elem;
+	int sz;
+};
