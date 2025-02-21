@@ -11,8 +11,8 @@ public:
         : re{r}, im{i} { }
     Complex(double r)
         : re{r} { }
-    double real();
-    double imag();
+    double real() { return re; }
+    double imag() { return im; }
     Complex& operator+=(Complex z);
     Complex& operator-=(Complex z);
     Complex& operator*=(Complex z);
